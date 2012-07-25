@@ -44,6 +44,8 @@ chrome.omnibox.onInputChanged.addListener(_.debounce(function (queryText, sugges
             key   : API_KEY,
             alt   : "json",
             q     : queryText,
+            num   : 5,
+            lr    : "lang_en",
             cx    : "017146964052550031681:wnjobi1fzcm",
             fields: "items(formattedUrl,htmlFormattedUrl,htmlTitle,link,title)"
         },
