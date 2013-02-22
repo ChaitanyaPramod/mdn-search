@@ -1,4 +1,5 @@
-var API_KEY = "AIzaSyCr6xs0NlPg2hIynXQJWY3o230n6iQyDl0";
+var API_KEY = "AIzaSyCr6xs0NlPg2hIynXQJWY3o230n6iQyDl0",
+    NO_OF_RESULTS = 5; // Chrome shows only upto 5 results
 
 var currentQueryString;
 var resultCache = {};
@@ -16,12 +17,9 @@ chrome.omnibox.onInputChanged.addListener(_.debounce(function (queryText, sugges
             return;
         }
 
-        var itemCountToConsider;
-
         _(data.items).
             chain().
-            tap(function (arr) { itemCountToConsider = arr.length < 5 ? arr.length : 5 }).
-            first(itemCountToConsider).
+            first(NO_OF_RESULTS).
             map(function (item) {
                 var description = "<url>" + item.htmlFormattedUrl + "</url><dim> - " + item.htmlTitle + "</dim>";
                 description = description.replace(/<b>/gi, "<match>").replace(/<\/b>/gi, "</match>");
@@ -44,7 +42,7 @@ chrome.omnibox.onInputChanged.addListener(_.debounce(function (queryText, sugges
             key   : API_KEY,
             alt   : "json",
             q     : queryText,
-            num   : 5,
+            num   : NO_OF_RESULTS,
             lr    : "lang_en",
             cx    : "017146964052550031681:wnjobi1fzcm",
             fields: "items(formattedUrl,htmlFormattedUrl,htmlTitle,link,title)"
