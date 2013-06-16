@@ -1,15 +1,17 @@
 {
-    "name"          : "MDN Search",
-    "description"   : "Search MDN within Chrome omnibox itself",
-    "version"       : "0.1.1",
-    "omnibox"       : { "keyword": "mdn" },
-    "icons"         : {
+    "name"            : "MDN Search",
+    "description"     : "Search MDN within Chrome omnibox itself",
+    "version"         : "0.1.2",
+	"manifest_version": 2,
+	"content_security_policy": "script-src 'self' https://www.googleapis.com; object-src 'self'",
+    "omnibox"         : { "keyword": "mdn" },
+    "icons"           : {
         "16" : "mozilla-16.ico",
         "48" : "mozilla-48.png",
         "128": "mozilla-128.jpg"
     },
-    "background"    : {
-        "scripts": [
+    "background"      : {
+        "scripts"     : [
             "jquery-1.7.2.min.js",
             "underscore-1.3.3.min.js",
             "mdn_search.js"
