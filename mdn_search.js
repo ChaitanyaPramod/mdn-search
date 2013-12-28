@@ -29,6 +29,11 @@ chrome.omnibox.onInputChanged.addListener(_.debounce(function (queryText, sugges
             return;
         }
 
+        if (!data.items) {
+            chrome.omnibox.setDefaultSuggestion({description: "No results found for: <match>" + queryText + "</match>"});
+            return;
+        }
+
         var results = _(data.items).
             chain().
             first(NO_OF_RESULTS).
