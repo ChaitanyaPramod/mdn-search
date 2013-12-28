@@ -1,14 +1,26 @@
 var API_KEY = "AIzaSyCr6xs0NlPg2hIynXQJWY3o230n6iQyDl0",
     NO_OF_RESULTS = 5; // Chrome shows only upto 5 results
 
-var currentQueryString;
-var resultCache = {};
+var currentQueryString,
+    latestDefault = null,
+    resultCache = {};
 
 chrome.omnibox.onInputChanged.addListener(_.debounce(function (queryText, suggestCallback) {
     console.log("Changed:", queryText);
     currentQueryString = queryText;
 
-    if (!queryText) return;
+    function clearDefault (queryText) {
+        latestDefault = null;
+        var suggestion = queryText ?
+            "Search MDN for: <match>" + queryText + "</match>":
+            "Start typing to search MDN";
+        chrome.omnibox.setDefaultSuggestion({description: suggestion});
+    }
+
+    function setDefaultSuggestion (result) {
+        latestDefault = result;
+        chrome.omnibox.setDefaultSuggestion({description: result.description});
+    }
 
     function dataHandler (data) {
         if (currentQueryString !== queryText) {
@@ -17,7 +29,7 @@ chrome.omnibox.onInputChanged.addListener(_.debounce(function (queryText, sugges
             return;
         }
 
-        _(data.items).
+        var results = _(data.items).
             chain().
             first(NO_OF_RESULTS).
             map(function (item) {
@@ -28,13 +40,23 @@ chrome.omnibox.onInputChanged.addListener(_.debounce(function (queryText, sugges
                     description: description
                 };
             }).
-            tap(suggestCallback);
+            value();
+
+        setDefaultSuggestion(results.shift());
+        suggestCallback(results);
+    }
+
+    if (!queryText) {
+        clearDefault(queryText);
+        return;
     }
 
     // Check if we cached results for this query
     if (resultCache[queryText]) {
         dataHandler(resultCache[queryText]);
         return;
+    } else {
+        clearDefault(queryText);
     }
 
     $.getJSON("https://www.googleapis.com/customsearch/v1?callback=?",
@@ -56,10 +78,14 @@ chrome.omnibox.onInputEntered.addListener(function (queryText) {
 
     var url;
 
-    if (queryText.indexOf("http://") === -1 && queryText.indexOf("https://") === -1) {
-        url = "https://developer.mozilla.org/en-US/search?q=" + encodeURIComponent(queryText);
-    } else {
+    var isUrl = queryText.indexOf("http://") === 0 || queryText.indexOf("https://") === 0;
+
+    if (isUrl) {
         url = queryText;
+    } else if (queryText == currentQueryString && !!latestDefault) {
+        url = latestDefault.content
+    } else {
+        url = "https://developer.mozilla.org/en-US/search?q=" + encodeURIComponent(queryText);
     }
 
     chrome.tabs.update({url: url});
@@ -70,6 +96,5 @@ chrome.omnibox.onInputStarted.addListener(function () {
 });
 
 chrome.omnibox.onInputCancelled.addListener(function () {
-    currentQueryString = "";
     console.log("Cancelled");
 });
