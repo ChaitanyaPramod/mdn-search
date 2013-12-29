@@ -47,6 +47,10 @@ chrome.omnibox.onInputChanged.addListener(_.debounce(function (queryText, sugges
                     description: description
                 };
             }).
+            push({
+                content    : "[mdn]" + queryText,
+                description: "Search MDN for: <match>" + queryText + "</match>"
+            }).
             value();
 
         setDefaultSuggestion(results.shift());
@@ -66,8 +70,7 @@ chrome.omnibox.onInputChanged.addListener(_.debounce(function (queryText, sugges
         clearDefault(queryText);
     }
 
-    $.getJSON("https://www.googleapis.com/customsearch/v1?callback=?",
-        {
+    $.getJSON("https://www.googleapis.com/customsearch/v1?callback=?", {
             key   : API_KEY,
             alt   : "json",
             q     : queryText,
@@ -75,11 +78,10 @@ chrome.omnibox.onInputChanged.addListener(_.debounce(function (queryText, sugges
             lr    : "lang_en",
             cx    : "017146964052550031681:wnjobi1fzcm",
             fields: "items(formattedUrl,htmlFormattedUrl,htmlTitle,link,title)"
-        },
-        dataHandler);
+        }, dataHandler);
 }, 250));
 
-chrome.omnibox.onInputEntered.addListener(function (queryText) {
+chrome.omnibox.onInputEntered.addListener(function (/*String*/queryText) {
     // Navigate user to selected page or the search page
     console.log("Entered:", queryText);
 
@@ -92,7 +94,8 @@ chrome.omnibox.onInputEntered.addListener(function (queryText) {
     } else if (queryText == currentQueryString && !!latestDefault) {
         url = latestDefault.content
     } else {
-        url = "https://developer.mozilla.org/en-US/search?q=" + encodeURIComponent(queryText);
+        var query = queryText.indexOf("[mdn]") == -1 ? queryText : queryText.slice("[mdn]".length);
+        url = "https://developer.mozilla.org/en-US/search?q=" + encodeURIComponent(query);
     }
 
     chrome.tabs.update({url: url});
