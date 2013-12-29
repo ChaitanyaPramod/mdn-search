@@ -6,9 +6,9 @@
 	"content_security_policy": "script-src 'self' https://www.googleapis.com; object-src 'self'",
     "omnibox"         : { "keyword": "mdn" },
     "icons"           : {
-        "16" : "mozilla-16.ico",
+        "16" : "mozilla-16-bw.png",
         "48" : "mozilla-48.png",
-        "128": "mozilla-128.jpg"
+        "128": "logo-128.png"
     },
     "background"      : {
         "scripts"     : [
