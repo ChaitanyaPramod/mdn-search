@@ -1,7 +1,7 @@
 {
     "name"            : "MDN Search",
     "description"     : "Search MDN within Chrome omnibox itself",
-    "version"         : "0.1.2",
+    "version"         : "0.2.0",
 	"manifest_version": 2,
 	"content_security_policy": "script-src 'self' https://www.googleapis.com; object-src 'self'",
     "omnibox"         : { "keyword": "mdn" },
