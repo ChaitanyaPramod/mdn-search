@@ -5,22 +5,22 @@ var currentQueryString,
     latestDefault = null,
     resultCache = {};
 
+function clearDefault (queryText) {
+    latestDefault = null;
+    var suggestion = queryText ?
+        "Search MDN for: <match>" + queryText + "</match>":
+        "Start typing to search MDN";
+    chrome.omnibox.setDefaultSuggestion({description: suggestion});
+}
+
+function setDefaultSuggestion (result) {
+    latestDefault = result;
+    chrome.omnibox.setDefaultSuggestion({description: result.description});
+}
+
 chrome.omnibox.onInputChanged.addListener(_.debounce(function (queryText, suggestCallback) {
     console.log("Changed:", queryText);
     currentQueryString = queryText;
-
-    function clearDefault (queryText) {
-        latestDefault = null;
-        var suggestion = queryText ?
-            "Search MDN for: <match>" + queryText + "</match>":
-            "Start typing to search MDN";
-        chrome.omnibox.setDefaultSuggestion({description: suggestion});
-    }
-
-    function setDefaultSuggestion (result) {
-        latestDefault = result;
-        chrome.omnibox.setDefaultSuggestion({description: result.description});
-    }
 
     function dataHandler (data) {
         if (data && !data.error) {
