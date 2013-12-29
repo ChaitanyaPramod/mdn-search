@@ -23,7 +23,9 @@ chrome.omnibox.onInputChanged.addListener(_.debounce(function (queryText, sugges
     }
 
     function dataHandler (data) {
-        resultCache[queryText] = data;
+        if (data && !data.error) {
+            resultCache[queryText] = data;
+        }
 
         if (currentQueryString !== queryText) { // We went past this query
             return;
