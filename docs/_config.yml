@@ -2,8 +2,7 @@ title: MDN Search
 email: mdn@chaitanyapramod.com
 description: >- 
   Search MDN web documentation right from your Chrome omnibox/addressbar
-baseurl: /mdn-search
-url: https://chaitanyapramod.github.io/
+url: https://mdnsearch.chaitanyapramod.com/
 logo: /assets/images/mdn-search.svg
 twitter_username: ChaitanyaPramod
 github_username: ChaitanyaPramod 
@@ -26,17 +25,3 @@ author:
   facebook: ChaitanyaPramod
 
 minimal_mistakes_skin: "contrast"
-
-atom_feed:
-
-# Exclude from processing.
-# The following items will not be processed, by default. Create a custom list
-# to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
