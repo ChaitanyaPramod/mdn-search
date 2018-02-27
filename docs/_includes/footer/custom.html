@@ -3,6 +3,7 @@
   if (installBtn && chrome && chrome.webstore) {
     installBtn.addEventListener('click', function (e) {
       chrome.webstore.install();
+      e.preventDefault();
     });
   }
 </script>
