@@ -4,7 +4,7 @@
 # See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 layout: splash
 header:
-  overlay_image: /assets/images/Async.png
+  overlay_image: /assets/images/Flexbox.png
   overlay_filter: 0.8
   cta_label: Install
   cta_url: https://chrome.google.com/webstore/detail/mdn-search/ffpifaemeofjmncjdbegmbpcdaemkeoc
