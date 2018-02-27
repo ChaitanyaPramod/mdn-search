@@ -1,0 +1,42 @@
+title: MDN Search
+email: mdn@chaitanyapramod.com
+description: >- 
+  Search MDN web documentation right from your Chrome omnibox/addressbar
+baseurl: /mdn-search
+url: https://chaitanyapramod.github.io/
+logo: /assets/images/mdn-search.svg
+twitter_username: ChaitanyaPramod
+github_username: ChaitanyaPramod 
+
+# Build settings
+markdown: kramdown
+remote_theme: mmistakes/minimal-mistakes
+plugins:
+  - jekyll-seo-tag
+
+google_analytics: UA-114772362-1
+
+twitter:
+  username: ChaitanyaPramod
+
+author:
+  name: Chaitanya Pramod
+  twitter: ChaitanyaPramod
+  github: ChaitanyaPramod
+  facebook: ChaitanyaPramod
+
+minimal_mistakes_skin: "contrast"
+
+atom_feed:
+
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+# exclude:
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
