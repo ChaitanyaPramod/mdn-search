@@ -1,0 +1,8 @@
+<script async>
+  var installBtn = document.getElementsByClassName("btn--large")[0];
+  if (installBtn && chrome && chrome.webstore) {
+    installBtn.addEventListener('click', function (e) {
+      chrome.webstore.install();
+    });
+  }
+</script>
