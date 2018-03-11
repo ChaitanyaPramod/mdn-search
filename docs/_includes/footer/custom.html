@@ -6,4 +6,11 @@
       e.preventDefault();
     });
   }
+  var bottomInstallBtn = document.getElementsByClassName("btn--x-large")[0];
+  if (bottomInstallBtn && chrome && chrome.webstore) {
+    bottomInstallBtn.addEventListener('click', function (e) {
+      chrome.webstore.install();
+      e.preventDefault();
+    });
+  }
 </script>
