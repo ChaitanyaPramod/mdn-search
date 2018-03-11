@@ -26,3 +26,8 @@ intro:
 
 # Search for *any web documentation*
 {% include video id="QwiKOOU3hxQ" provider="youtube" %}
+
+
+# Search MDN Web Docs like a boss.
+
+# [Install MDN Search](https://chrome.google.com/webstore/detail/mdn-search/ffpifaemeofjmncjdbegmbpcdaemkeoc){: .btn .btn--x-large .btn--info}
